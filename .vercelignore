@@ -1,0 +1,17 @@
+# Don't ignore any static assets
+!*.css
+!*.js
+!*.html
+!*.png
+!*.jpg
+!*.jpeg
+!*.gif
+!*.svg
+!*.mp4
+!*.ico
+
+# Ignore development files
+.git
+.gitignore
+node_modules
+README.md
