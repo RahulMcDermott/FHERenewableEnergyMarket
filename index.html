@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Renewable Energy Market</title>
+    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🌱</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 Private Renewable Energy Market</h1>
+            <p>Confidential Trading Platform for Clean Energy</p>
+            <div class="connection-status">
+                <button id="connectWallet" class="btn btn-primary">Connect Wallet</button>
+                <div id="walletInfo" class="wallet-info hidden">
+                    <span id="walletAddress"></span>
+                    <span id="networkStatus"></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Trading Period Status -->
+            <section class="card">
+                <h2>📅 Current Trading Period</h2>
+                <div id="periodStatus" class="period-status">
+                    <div class="status-item">
+                        <label>Period:</label>
+                        <span id="currentPeriod">-</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Status:</label>
+                        <span id="periodStatusText" class="status-badge">-</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Time Remaining:</label>
+                        <span id="timeRemaining">-</span>
+                    </div>
+                </div>
+                <button id="startTradingBtn" class="btn btn-secondary hidden">Start New Trading Period</button>
+            </section>
+
+            <!-- Energy Producer Section -->
+            <section class="card">
+                <h2>⚡ Energy Producer</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="energyAmount">Energy Amount (kWh):</label>
+                        <input type="number" id="energyAmount" min="1" max="4294967295" placeholder="e.g., 100">
+                    </div>
+                    <div class="form-group">
+                        <label for="pricePerKwh">Price per kWh (wei):</label>
+                        <input type="number" id="pricePerKwh" min="1" max="4294967295" placeholder="e.g., 1000000">
+                        <small style="color: #888; font-size: 0.8em; margin-top: 4px; display: block;">Maximum: 4,294,967,295 wei</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="energyType">Energy Type:</label>
+                        <select id="energyType">
+                            <option value="1">🌞 Solar</option>
+                            <option value="2">💨 Wind</option>
+                            <option value="3">💧 Hydro</option>
+                            <option value="4">🌋 Geothermal</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="submitOfferBtn" class="btn btn-success">Submit Energy Offer</button>
+
+                <div id="producerStats" class="stats-section">
+                    <h3>Your Offers</h3>
+                    <div class="stat-item">
+                        <label>Active Offers:</label>
+                        <span id="activeOffers">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Energy Consumer Section -->
+            <section class="card">
+                <h2>🏠 Energy Consumer</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="demandAmount">Required Energy (kWh):</label>
+                        <input type="number" id="demandAmount" min="1" max="4294967295" placeholder="e.g., 50">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPrice">Max Price per kWh (wei):</label>
+                        <input type="number" id="maxPrice" min="1" max="4294967295" placeholder="e.g., 1200000">
+                        <small style="color: #888; font-size: 0.8em; margin-top: 4px; display: block;">Maximum: 4,294,967,295 wei</small>
+                    </div>
+                </div>
+                <button id="submitDemandBtn" class="btn btn-info">Submit Energy Demand</button>
+
+                <div id="consumerStats" class="stats-section">
+                    <h3>Your Demands</h3>
+                    <div class="stat-item">
+                        <label>Active Demands:</label>
+                        <span id="activeDemands">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Statistics -->
+            <section class="card">
+                <h2>📊 Market Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Trades</h3>
+                        <span id="totalTrades" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Current Period Offers</h3>
+                        <span id="totalOffers" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Current Period Demands</h3>
+                        <span id="totalDemands" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Carbon Credits Earned</h3>
+                        <span id="carbonCredits" class="stat-value">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Owner Controls -->
+            <section class="card" id="ownerControls" style="display: none;">
+                <h2>🔧 Owner Controls</h2>
+                <div class="button-group">
+                    <button id="processTrading" class="btn btn-warning">Process Trading Settlement</button>
+                    <button id="pauseTrading" class="btn btn-danger">Pause Trading</button>
+                    <button id="resumeTrading" class="btn btn-success">Resume Trading</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Transaction Status -->
+        <div id="transactionStatus" class="transaction-status hidden">
+            <div class="transaction-content">
+                <span id="transactionMessage"></span>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Error Messages -->
+        <div id="errorMessage" class="error-message hidden">
+            <span id="errorText"></span>
+            <button onclick="hideError()" class="close-btn">×</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
