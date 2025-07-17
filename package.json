@@ -1,0 +1,81 @@
+{
+  "name": "private-renewable-energy-market",
+  "version": "1.0.0",
+  "description": "Private Renewable Energy Market - Confidential Trading Platform for Clean Energy",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:sepolia": "hardhat test test/PrivateRenewableEnergyMarket.sepolia.test.js --network sepolia",
+    "test:local": "hardhat test test/PrivateRenewableEnergyMarket.test.js",
+    "test:coverage": "hardhat coverage",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "lint": "npm run lint:sol && npm run lint:js && npm run format:check",
+    "lint:sol": "solhint 'contracts/**/*.sol'",
+    "lint:js": "eslint 'test/**/*.js' 'scripts/**/*.js'",
+    "lint:fix": "npm run lint:sol:fix && npm run lint:js:fix",
+    "lint:sol:fix": "solhint 'contracts/**/*.sol' --fix",
+    "lint:js:fix": "eslint 'test/**/*.js' 'scripts/**/*.js' --fix",
+    "format": "prettier --write 'contracts/**/*.sol' 'test/**/*.js' 'scripts/**/*.js'",
+    "format:check": "prettier --check 'contracts/**/*.sol' 'test/**/*.js' 'scripts/**/*.js'",
+    "security": "npm audit && npm run security:slither",
+    "security:check": "npm audit --audit-level=moderate",
+    "security:fix": "npm audit fix",
+    "security:slither": "echo 'Run: slither . --filter-paths node_modules'",
+    "prepare": "husky install",
+    "precommit": "npm run lint && npm test",
+    "prepush": "npm run security:check && npm run coverage",
+    "deploy": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "verify": "hardhat run scripts/verify.js --network sepolia",
+    "interact": "hardhat run scripts/interact.js --network sepolia",
+    "simulate": "hardhat run scripts/simulate.js --network localhost",
+    "node": "hardhat node",
+    "clean": "hardhat clean && rm -rf cache artifacts coverage",
+    "clean:all": "npm run clean && rm -rf node_modules package-lock.json",
+    "coverage": "hardhat coverage",
+    "gas:report": "REPORT_GAS=true npm test",
+    "size:check": "hardhat size-contracts",
+    "start": "npx http-server . -p 3000 -c-1 --cors",
+    "dev": "npx http-server . -p 3000 -c-1 --cors",
+    "optimize": "npm run compile && npm run gas:report",
+    "ci": "npm run lint && npm run test:coverage && npm run security:check"
+  },
+  "keywords": [
+    "renewable-energy",
+    "blockchain",
+    "ethereum",
+    "privacy",
+    "trading",
+    "hardhat",
+    "fhevm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "hardhat": "^2.19.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "ethers": "^6.9.0",
+    "solhint": "^4.1.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.0",
+    "prettier-plugin-solidity": "^1.2.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "lint-staged": {
+    "*.sol": [
+      "solhint --fix",
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
