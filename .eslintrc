@@ -1,0 +1,60 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "warn",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "no-throw-literal": "error",
+    "prefer-promise-reject-errors": "error",
+    "no-return-await": "warn",
+    "require-await": "warn",
+    "no-async-promise-executor": "error",
+    "max-depth": ["warn", 4],
+    "max-nested-callbacks": ["warn", 3],
+    "complexity": ["warn", 10],
+    "max-lines-per-function": ["warn", { "max": 100 }],
+    "max-params": ["warn", 5],
+    "no-magic-numbers": ["warn", {
+      "ignore": [0, 1, -1],
+      "ignoreArrayIndexes": true,
+      "enforceConst": true
+    }],
+    "no-shadow": "error",
+    "no-use-before-define": ["error", { "functions": false }],
+    "camelcase": ["error", { "properties": "never" }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "only-multiline"],
+    "no-trailing-spaces": "error",
+    "eol-last": ["error", "always"]
+  },
+  "globals": {
+    "artifacts": "readonly",
+    "contract": "readonly",
+    "assert": "readonly",
+    "web3": "readonly",
+    "ethers": "readonly",
+    "network": "readonly"
+  }
+}
