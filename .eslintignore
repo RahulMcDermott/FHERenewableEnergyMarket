@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+artifacts/
+cache/
+coverage/
+typechain-types/
+dist/
+build/
+
+# Deployment files
+deployments/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Configuration files
+hardhat.config.js
+*.config.js
