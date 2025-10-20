@@ -4,6 +4,12 @@
 
 **Network**: Sepolia Testnet (Chain ID: 11155111)
 
+**🌐 Live Demo**: [https://fhe-renewable-energy-market.vercel.app/](https://fhe-renewable-energy-market.vercel.app/)
+
+**📦 GitHub Repository**: [https://github.com/RahulMcDermott/FHERenewableEnergyMarket](https://github.com/RahulMcDermott/FHERenewableEnergyMarket)
+
+**🎯 SDK Repository**: [https://github.com/RahulMcDermott/fhevm-react-template](https://github.com/RahulMcDermott/fhevm-react-template)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.24-blue)](https://soliditylang.org/)
