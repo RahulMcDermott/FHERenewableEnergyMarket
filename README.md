@@ -21,6 +21,8 @@
 
 The Private Renewable Energy Market revolutionizes clean energy trading by combining **Fully Homomorphic Encryption (FHE)** with blockchain technology. Producers and consumers can submit **encrypted bids** for renewable energy without revealing sensitive pricing strategies, ensuring fair market conditions and competitive advantage protection.
 
+**NEW**: Now includes a modern **React + Vite frontend application** with FHEVM SDK integration for easy interaction with the smart contract through an intuitive web interface!
+
 ### ✨ Key Features
 
 - 🔐 **Fully Private Bidding** - Encrypted energy offers and demands using Zama FHEVM
@@ -30,6 +32,7 @@ The Private Renewable Energy Market revolutionizes clean energy trading by combi
 - 🛡️ **DoS Protection** - Emergency pause mechanism and gas optimization
 - 📊 **Transparent Settlement** - Public results after confidential trading
 - 🔄 **Real-time Matching** - Efficient supply-demand matching algorithm
+- 🎨 **Modern Frontend** - React + Vite application with MetaMask integration and FHEVM SDK
 
 ---
 
@@ -112,6 +115,17 @@ The Private Renewable Energy Market revolutionizes clean energy trading by combi
 - **Network**: Ethereum Sepolia Testnet
 - **EVM Version**: Cancun
 
+### Frontend Application (New React + Vite)
+- **React**: 18.2.0 (Modern hooks & TypeScript)
+- **Build Tool**: Vite 5.0.0 (Fast HMR & optimized builds)
+- **TypeScript**: 5.0.0 (Full type safety)
+- **Web3 Integration**: Ethers.js 6.9.0
+- **FHEVM SDK**: Custom @fhevm/sdk integration
+- **FHE Library**: fhevmjs v0.5.0
+- **Wallet**: MetaMask integration
+- **Styling**: Custom CSS with modern design system
+- **Dev Server**: Vite dev server (port 3001)
+
 ### Development Tools
 - **Testing**: Mocha + Chai + Ethers.js 6.9.0
 - **Linting**: Solhint + ESLint + Prettier
@@ -119,11 +133,14 @@ The Private Renewable Energy Market revolutionizes clean energy trading by combi
 - **Gas Optimization**: Gas Reporter + Contract Sizer
 - **CI/CD**: GitHub Actions (Node 18.x & 20.x)
 - **Coverage**: Codecov integration
+- **TypeScript Tools**: @typescript-eslint/eslint-plugin + parser
+- **React Linting**: eslint-plugin-react-hooks + react-refresh
 
 ### Encryption
 - **FHE Types**: `euint32`, `euint64`, `ebool`
 - **Operations**: `FHE.add()`, `FHE.eq()`, `FHE.select()`, `FHE.ge()`
 - **Access Control**: `FHE.allow()`, `FHE.allowThis()`
+- **Client-side Encryption**: FHEVM SDK with React integration
 
 ---
 
@@ -187,6 +204,62 @@ npm run node
 npm run simulate
 ```
 
+### Frontend Application Setup
+
+The project includes a modern **React + Vite frontend** located at `./private-energy-market-react/` that provides an intuitive user interface for interacting with the smart contract.
+
+```bash
+# Navigate to frontend directory
+cd private-energy-market-react
+
+# Install dependencies
+npm install
+
+# Copy environment template
+cp .env.example .env.local
+
+# Edit .env.local with your configuration:
+# - VITE_CONTRACT_ADDRESS: Deployed contract address
+# - VITE_RPC_URL: (Optional) Custom Sepolia RPC URL
+# - VITE_CHAIN_ID: (Optional) Default is 11155111 for Sepolia
+
+# Start development server
+npm run dev
+# Frontend available at http://localhost:3001
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+**Frontend Features:**
+- 🔐 **Wallet Integration**: Connect with MetaMask
+- 📝 **Energy Offers**: Submit encrypted energy offers with FHEVM SDK
+- 🏭 **Energy Demands**: Submit encrypted energy demands
+- 📊 **Trading Period Info**: View current trading period status
+- ⚡ **Real-time Encryption**: Client-side FHE encryption before submission
+- 🎨 **Modern UI**: Clean, responsive design with dark theme
+- ⚙️ **TypeScript**: Full type safety throughout the application
+
+**Frontend Project Structure:**
+```
+private-energy-market-react/
+├── src/
+│   ├── components/              # React components
+│   │   ├── WalletConnect.tsx    # Wallet connection
+│   │   ├── TradingPeriodInfo.tsx # Trading info display
+│   │   ├── EnergyOfferForm.tsx  # Offer form with SDK
+│   │   └── EnergyDemandForm.tsx # Demand form with SDK
+│   ├── App.tsx                  # Main app component
+│   ├── main.tsx                 # Entry point
+│   └── index.css                # Styles
+├── vite.config.ts               # Vite configuration
+├── tsconfig.json                # TypeScript config
+└── package.json                 # Dependencies
+```
+
 ---
 
 ## 💡 Usage Guide
@@ -204,7 +277,7 @@ function submitEnergyOffer(
 ) external;
 ```
 
-**Example:**
+**Example (Traditional):**
 ```javascript
 // JavaScript client code
 const amount = 1000; // 1000 kWh
@@ -212,6 +285,27 @@ const price = 50;    // 50 wei per kWh
 const type = 1;      // Solar energy
 
 await contract.submitEnergyOffer(amount, price, type);
+```
+
+**Example (Using FHEVM SDK in React):**
+```typescript
+// In your React component (see private-energy-market-react/)
+import { createFhevmClient, encrypt } from '@fhevm/sdk'
+import { ethers } from 'ethers'
+
+// Initialize FHEVM client
+const client = await createFhevmClient({
+  network: 'sepolia',
+  contractAddress: CONTRACT_ADDRESS
+})
+
+// Encrypt values before submission
+const encryptedAmount = await encrypt(client, 1000, { bits: 32 })
+const encryptedPrice = await encrypt(client, 50, { bits: 32 })
+
+// Submit to contract with encrypted values
+const contract = new ethers.Contract(address, abi, signer)
+await contract.submitEnergyOffer(encryptedAmount, encryptedPrice, 1)
 ```
 
 ### For Energy Consumers
@@ -622,6 +716,21 @@ private-renewable-energy-market/
 ├── test/
 │   ├── PrivateRenewableEnergyMarket.test.js       # Unit tests
 │   └── PrivateRenewableEnergyMarket.sepolia.test.js  # Integration tests
+├── private-energy-market-react/           # Frontend application (NEW)
+│   ├── src/
+│   │   ├── components/                    # React components
+│   │   │   ├── WalletConnect.tsx          # Wallet connection
+│   │   │   ├── TradingPeriodInfo.tsx      # Trading period display
+│   │   │   ├── EnergyOfferForm.tsx        # Offer form with FHEVM SDK
+│   │   │   └── EnergyDemandForm.tsx       # Demand form with FHEVM SDK
+│   │   ├── App.tsx                        # Main app component
+│   │   ├── main.tsx                       # Entry point
+│   │   └── index.css                      # Global styles
+│   ├── vite.config.ts                     # Vite configuration
+│   ├── tsconfig.json                      # TypeScript config
+│   ├── package.json                       # Frontend dependencies
+│   ├── .env.example                       # Frontend env template
+│   └── README.md                          # Frontend documentation
 ├── .github/workflows/
 │   └── test.yml                           # CI/CD pipeline
 ├── deployments/                           # Deployment records
@@ -638,6 +747,7 @@ private-renewable-energy-market/
 
 ### Available Scripts
 
+#### Smart Contract Scripts
 ```bash
 # Development
 npm run compile              # Compile contracts
@@ -661,6 +771,18 @@ npm run security             # Security audit
 
 # CI/CD
 npm run ci                   # Run full CI checks
+```
+
+#### Frontend Scripts (in private-energy-market-react/)
+```bash
+# Development
+npm run dev                  # Start Vite dev server (port 3001)
+npm run build                # Build for production (dist/)
+npm run preview              # Preview production build
+npm run lint                 # Lint TypeScript/React code
+
+# Type Checking
+tsc --noEmit                 # Check TypeScript types
 ```
 
 ### Environment Setup
