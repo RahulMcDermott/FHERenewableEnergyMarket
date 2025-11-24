@@ -1,6 +1,9 @@
-require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-ethers");
+require("@nomicfoundation/hardhat-chai-matchers");
 require("@nomicfoundation/hardhat-verify");
+require("hardhat-gas-reporter");
 require("hardhat-contract-sizer");
+require("solidity-coverage");
 require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -10,73 +13,56 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200,
+        runs: 200
       },
-      evmVersion: "cancun"
-    },
+      viaIR: true
+    }
   },
-
   networks: {
-    // Local Hardhat Network
     hardhat: {
-      chainId: 31337,
       allowUnlimitedContractSize: true,
+      chainId: 31337
     },
-
-    // Local Network (for testing)
     localhost: {
-      url: "http://127.0.0.1:8545",
-      chainId: 31337,
+      url: "http://127.0.0.1:8545"
     },
-
-    // Sepolia Testnet
     sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
-      chainId: 11155111,
+      url: process.env.SEPOLIA_RPC_URL || "",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      gasPrice: "auto",
+      chainId: 11155111
     },
+    mainnet: {
+      url: process.env.MAINNET_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 1
+    }
   },
-
-  // Etherscan API for contract verification
-  etherscan: {
-    apiKey: {
-      sepolia: process.env.ETHERSCAN_API_KEY || "",
-    },
-  },
-
-  // Sourcify for contract verification (alternative)
-  sourcify: {
-    enabled: true,
-  },
-
-  // Gas Reporter configuration
   gasReporter: {
     enabled: process.env.REPORT_GAS === "true",
     currency: "USD",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     outputFile: "gas-report.txt",
-    noColors: true,
+    noColors: true
   },
-
-  // Paths configuration
-  paths: {
-    sources: "./contracts",
-    tests: "./test",
-    cache: "./cache",
-    artifacts: "./artifacts",
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY || "",
+      mainnet: process.env.ETHERSCAN_API_KEY || ""
+    }
   },
-
-  // Mocha test configuration
-  mocha: {
-    timeout: 200000,
-  },
-
-  // Contract size configuration
   contractSizer: {
     alphaSort: true,
     disambiguatePaths: false,
     runOnCompile: true,
-    strict: true,
-    only: [],
+    strict: true
   },
+  mocha: {
+    timeout: 120000
+  },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
+  }
 };
