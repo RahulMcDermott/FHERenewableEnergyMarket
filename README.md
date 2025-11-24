@@ -2,6 +2,12 @@
 
 A privacy-preserving renewable energy trading platform built with **ZAMA Fully Homomorphic Encryption (FHE)**, featuring **Gateway callback pattern**, **refund mechanisms**, and **timeout protection**.
 
+## Live Platform
+
+- **Website**: [https://private-renewable-energy-market.vercel.app/](https://private-renewable-energy-market.vercel.app/)
+- **Contract Address**: `0x57fdac162Da016c5795fA2322ee2BDC5549430D8`
+- **Network**: Ethereum Sepolia Testnet
+
 ## Core Features
 
 ### 1. Gateway Callback Pattern (Async FHE Processing)
@@ -417,11 +423,7 @@ npm run test:coverage
 - [Renewable Energy Markets](https://en.wikipedia.org/wiki/Electricity_market)
 - [FHE Applications in Finance](https://eprint.iacr.org/2022/1074.pdf)
 
-## Live Platform
 
-- **Website**: [https://private-renewable-energy-market.vercel.app/](https://private-renewable-energy-market.vercel.app/)
-- **Contract Address**: `0x57fdac162Da016c5795fA2322ee2BDC5549430D8`
-- **Network**: Ethereum Sepolia Testnet
 
 ## License
 
