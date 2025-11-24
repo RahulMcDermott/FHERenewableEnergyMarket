@@ -470,7 +470,7 @@ The Private Belief Market is a **production-ready, privacy-preserving prediction
 ✅ HCU-optimized encrypted vote aggregation
 ✅ Complete documentation (700+ pages)
 
-The system is **fully English**, contains **no dapp+numbers or Zamabelief naming**, and represents a significant innovation in privacy-preserving prediction markets using cutting-edge FHE technology.
+ 
 
 ---
 
