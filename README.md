@@ -2,6 +2,9 @@
 
 A **privacy-preserving prediction market** platform using **ZAMA Fully Homomorphic Encryption (FHE)** with **Gateway callback pattern**, **refund mechanisms**, and **timeout protection**.
 
+Live Demo : https://fhe-renewable-energy-market.vercel.app/
+  
+
 ## Core Features
 
 ### 1. **Gateway Callback Pattern (Async FHE Processing)**
