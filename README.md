@@ -4,7 +4,7 @@ A privacy-preserving renewable energy trading platform built with **ZAMA Fully H
 
 ## Live Platform
 
-- **Website**: [https://private-renewable-energy-market.vercel.app/](https://private-renewable-energy-market.vercel.app/)
+- **Website**: [https://fhe-renewable-energy-market.vercel.app/](https://fhe-renewable-energy-market.vercel.app/)
 - **Contract Address**: `0x57fdac162Da016c5795fA2322ee2BDC5549430D8`
 - **Network**: Ethereum Sepolia Testnet
 
